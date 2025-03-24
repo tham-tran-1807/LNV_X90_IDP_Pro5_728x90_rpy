@@ -40,7 +40,6 @@ function handleComplete(evt, comp) {
 	stage.enableMouseOver();
 
 	fnStartAnimation = function() {
-		stage.removeAllChildren(); // Xóa các phần tử cũ trước khi bắt đầu lại
 		stage.addChild(exportRoot);
 		createjs.Ticker.framerate = lib.properties.fps;
 		createjs.Ticker.addEventListener("tick", stage);
@@ -56,9 +55,8 @@ function handleComplete(evt, comp) {
 	});
 
 	// Thêm sự kiện cho nút replay nếu có
-	if (exportRoot.mc_mui_ten_xoay) {
-		exportRoot.mc_mui_ten_xoay.cursor = "pointer";
-		exportRoot.mc_mui_ten_xoay.addEventListener("click", function(evt) {
+	if (exportRoot.btn_replay) {
+		exportRoot.btn_replay.addEventListener("click", function(evt) {
 			evt.stopPropagation(); // Ngăn chặn việc click vào nút replay mở URL
 			fnStartAnimation();
 		});
