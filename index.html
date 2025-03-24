@@ -40,6 +40,7 @@ function handleComplete(evt, comp) {
 	stage.enableMouseOver();
 
 	fnStartAnimation = function() {
+		stage.removeAllChildren();
 		stage.addChild(exportRoot);
 		createjs.Ticker.framerate = lib.properties.fps;
 		createjs.Ticker.addEventListener("tick", stage);
@@ -49,9 +50,9 @@ function handleComplete(evt, comp) {
 	AdobeAn.compositionLoaded(lib.properties.id);
 	fnStartAnimation();
 
-	// Sự kiện click cho banner (trừ nút replay)
+	// Thêm sự kiện click cho toàn bộ banner, ngoại trừ nút replay
 	document.getElementById("animation_container").addEventListener("click", function(event) {
-		if (!event.target.closest("#btn_replay")) { // Kiểm tra nếu KHÔNG phải nút replay
+		if (event.target.id !== "btn_replay") { // Kiểm tra nếu KHÔNG phải nút replay
 			window.open(clickTag, "_blank");
 		}
 	});
