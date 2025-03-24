@@ -50,11 +50,13 @@ function handleComplete(evt, comp) {
 	AdobeAn.compositionLoaded(lib.properties.id);
 	fnStartAnimation();
 
-	// Thêm sự kiện click cho toàn bộ banner, ngoại trừ nút mc_mui_ten_xoay
+	// Thêm sự kiện click cho toàn bộ banner
 	document.getElementById("animation_container").addEventListener("click", function(event) {
-		if (!exportRoot.mc_mui_ten_xoay || event.target !== exportRoot.mc_mui_ten_xoay) { 
-			window.open(clickTag, "_blank");
+		// Kiểm tra nếu click vào nút replay thì không mở URL
+		if (exportRoot.mc_mui_ten_xoay && event.target === exportRoot.mc_mui_ten_xoay) {
+			return;
 		}
+		window.open(clickTag, "_blank");
 	});
 
 	// Kiểm tra & gán sự kiện cho nút mc_mui_ten_xoay
