@@ -49,18 +49,21 @@ function handleComplete(evt, comp) {
 	AdobeAn.compositionLoaded(lib.properties.id);
 	fnStartAnimation();
 
-	// Thêm sự kiện click cho toàn bộ banner
+	// Thêm sự kiện click cho toàn bộ banner (mở URL)
 	document.getElementById("animation_container").addEventListener("click", function() {
 		window.open(clickTag, "_blank");
 	});
 
-	// Thêm sự kiện cho nút replay nếu có
-	if (exportRoot.btn_replay) {
-		exportRoot.btn_replay.addEventListener("click", function(evt) {
-			evt.stopPropagation(); // Ngăn chặn việc click vào nút replay mở URL
-			fnStartAnimation();
-		});
-	}
+	// Chờ một chút để đảm bảo btn_replay đã load trước khi gán sự kiện
+	setTimeout(function() {
+		if (exportRoot.btn_replay) {
+			exportRoot.btn_replay.cursor = "pointer"; // Đảm bảo hiển thị con trỏ chuột
+			exportRoot.btn_replay.addEventListener("click", function(evt) {
+				evt.stopPropagation(); // Ngăn chặn việc click vào nút replay mở URL
+				fnStartAnimation(); // Replay banner
+			});
+		}
+	}, 500);
 }
 </script>
 <style>
