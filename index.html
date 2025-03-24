@@ -50,18 +50,18 @@ function handleComplete(evt, comp) {
 	AdobeAn.compositionLoaded(lib.properties.id);
 	fnStartAnimation();
 
-	// Thêm sự kiện click cho toàn bộ banner, ngoại trừ nút replay
+	// Thêm sự kiện click cho toàn bộ banner, ngoại trừ nút mc_mui_ten_xoay
 	document.getElementById("animation_container").addEventListener("click", function(event) {
-		if (event.target.id !== "btn_replay") { // Kiểm tra nếu KHÔNG phải nút replay
+		if (!exportRoot.mc_mui_ten_xoay || event.target !== exportRoot.mc_mui_ten_xoay) { 
 			window.open(clickTag, "_blank");
 		}
 	});
 
-	// Kiểm tra & gán sự kiện cho nút replay
+	// Kiểm tra & gán sự kiện cho nút mc_mui_ten_xoay
 	setTimeout(function() {
-		if (exportRoot.btn_replay) {
-			exportRoot.btn_replay.cursor = "pointer"; // Hiển thị trỏ chuột
-			exportRoot.btn_replay.addEventListener("click", function(evt) {
+		if (exportRoot.mc_mui_ten_xoay) {
+			exportRoot.mc_mui_ten_xoay.cursor = "pointer"; // Hiển thị trỏ chuột
+			exportRoot.mc_mui_ten_xoay.addEventListener("click", function(evt) {
 				evt.stopPropagation(); // Ngăn chặn mở URL
 				fnStartAnimation(); // Replay banner
 			});
