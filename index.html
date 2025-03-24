@@ -40,7 +40,7 @@ function handleComplete(evt, comp) {
 	stage.enableMouseOver();
 
 	fnStartAnimation = function() {
-		stage.removeAllChildren();
+		stage.removeAllChildren(); // Xóa các phần tử cũ trước khi bắt đầu lại
 		stage.addChild(exportRoot);
 		createjs.Ticker.framerate = lib.properties.fps;
 		createjs.Ticker.addEventListener("tick", stage);
@@ -51,29 +51,23 @@ function handleComplete(evt, comp) {
 	fnStartAnimation();
 
 	// Thêm sự kiện click cho toàn bộ banner
-	document.getElementById("animation_container").addEventListener("click", function(event) {
-		// Kiểm tra nếu click vào nút replay thì không mở URL
-		if (exportRoot.mc_mui_ten_xoay && event.target === exportRoot.mc_mui_ten_xoay) {
-			return;
-		}
+	document.getElementById("animation_container").addEventListener("click", function() {
 		window.open(clickTag, "_blank");
 	});
 
-	// Kiểm tra & gán sự kiện cho nút mc_mui_ten_xoay
-	setTimeout(function() {
-		if (exportRoot.mc_mui_ten_xoay) {
-			exportRoot.mc_mui_ten_xoay.cursor = "pointer"; // Hiển thị trỏ chuột
-			exportRoot.mc_mui_ten_xoay.addEventListener("click", function(evt) {
-				evt.stopPropagation(); // Ngăn chặn mở URL
-				fnStartAnimation(); // Replay banner
-			});
-		}
-	}, 500);
+	// Thêm sự kiện cho nút replay nếu có
+	if (exportRoot.mc_mui_ten_xoay) {
+		exportRoot.mc_mui_ten_xoay.cursor = "pointer";
+		exportRoot.mc_mui_ten_xoay.addEventListener("click", function(evt) {
+			evt.stopPropagation(); // Ngăn chặn việc click vào nút replay mở URL
+			fnStartAnimation();
+		});
+	}
 }
 </script>
 <style>
 	body { margin: 0; overflow: hidden; }
-	#animation_container { width: 728px; height: 90px; cursor: pointer; position: relative; }
+	#animation_container { width: 728px; height: 90px; cursor: pointer; }
 	#animation_container:hover { cursor: pointer; }
 </style>
 </head>
