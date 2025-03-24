@@ -49,17 +49,19 @@ function handleComplete(evt, comp) {
 	AdobeAn.compositionLoaded(lib.properties.id);
 	fnStartAnimation();
 
-	// Thêm sự kiện click cho toàn bộ banner (mở URL)
-	document.getElementById("animation_container").addEventListener("click", function() {
-		window.open(clickTag, "_blank");
+	// Sự kiện click cho banner (trừ nút replay)
+	document.getElementById("animation_container").addEventListener("click", function(event) {
+		if (!event.target.closest("#btn_replay")) { // Kiểm tra nếu KHÔNG phải nút replay
+			window.open(clickTag, "_blank");
+		}
 	});
 
-	// Chờ một chút để đảm bảo btn_replay đã load trước khi gán sự kiện
+	// Kiểm tra & gán sự kiện cho nút replay
 	setTimeout(function() {
 		if (exportRoot.btn_replay) {
-			exportRoot.btn_replay.cursor = "pointer"; // Đảm bảo hiển thị con trỏ chuột
+			exportRoot.btn_replay.cursor = "pointer"; // Hiển thị trỏ chuột
 			exportRoot.btn_replay.addEventListener("click", function(evt) {
-				evt.stopPropagation(); // Ngăn chặn việc click vào nút replay mở URL
+				evt.stopPropagation(); // Ngăn chặn mở URL
 				fnStartAnimation(); // Replay banner
 			});
 		}
@@ -68,7 +70,7 @@ function handleComplete(evt, comp) {
 </script>
 <style>
 	body { margin: 0; overflow: hidden; }
-	#animation_container { width: 728px; height: 90px; cursor: pointer; }
+	#animation_container { width: 728px; height: 90px; cursor: pointer; position: relative; }
 	#animation_container:hover { cursor: pointer; }
 </style>
 </head>
